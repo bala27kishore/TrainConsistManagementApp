@@ -1,33 +1,36 @@
+import java.util.Arrays;
+
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
         System.out.println("==========================================================");
-        System.out.println(" UC18 - Bogie Search using Linear Search ");
+        System.out.println(" UC20 - State Validation and Search ");
         System.out.println("==========================================================\n");
 
-        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
-        String searchTarget = "BG309";
+        String[] bogieIds = {"BG101", "BG205", "BG309"};
+        String searchTarget = "BG205";
 
-        System.out.print("Bogie ID Inventory: ");
-        for (String id : bogieIds) System.out.print(id + " ");
-        System.out.println("\nSearching for: " + searchTarget);
-
-        boolean found = findBogieById(bogieIds, searchTarget);
-
-        if (found) {
-            System.out.println("Result: Bogie " + searchTarget + " was found in the system.");
-        } else {
-            System.out.println("Result: Bogie " + searchTarget + " NOT found.");
+        try {
+            boolean found = validateAndSearch(bogieIds, searchTarget);
+            System.out.println("Bogie IDs: " + Arrays.toString(bogieIds));
+            System.out.println("Searching for: " + searchTarget);
+            System.out.println("Result: " + (found ? "Found" : "Not Found"));
+        } catch (IllegalStateException e) {
+            System.out.println("Validation Error: " + e.getMessage());
         }
 
-        System.out.println("\nUC18 search operation completed...");
+        System.out.println("\nUC20 operation completed...");
     }
 
-    public static boolean findBogieById(String[] ids, String target) {
-        if (ids == null || target == null) return false;
+    public static boolean validateAndSearch(String[] ids, String target) {
+        // Validation Rule: Data must exist
+        if (ids == null || ids.length == 0) {
+            throw new IllegalStateException("Bogie data is empty! Search cannot be performed.");
+        }
 
+        // Search logic
         for (String id : ids) {
-            if (id.equals(target)) {
+            if (id != null && id.equals(target)) {
                 return true;
             }
         }
