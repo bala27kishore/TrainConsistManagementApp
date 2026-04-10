@@ -1,53 +1,39 @@
-import java.util.Arrays;
-
 public class TrainConsistManagementApp {
 
     public static void main(String[] args) {
         System.out.println("==========================================================");
-        System.out.println(" UC17 - Alphabetical Sorting using Arrays.sort() ");
+        System.out.println(" UC18 - Bogie Search using Linear Search ");
         System.out.println("==========================================================\n");
 
-        String[] bogieTypes = {"Sleeper", "AC Chair", "First Class", "General", "Luxury"};
+        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
+        String searchTarget = "BG309";
 
-        System.out.println("Original Bogie Types:");
-        displayArray(bogieTypes);
+        System.out.print("Bogie ID Inventory: ");
+        for (String id : bogieIds) System.out.print(id + " ");
+        System.out.println("\nSearching for: " + searchTarget);
 
-        sortBogieTypes(bogieTypes);
+        boolean found = findBogieById(bogieIds, searchTarget);
 
-        System.out.println("\nSorted Bogie Types (Alphabetical):");
-        displayArray(bogieTypes);
-
-        System.out.println("\nUC17 sorting completed...");
-    }
-
-    public static void sortBogieTypes(String[] types) {
-        if (types != null) {
-            Arrays.sort(types);
+        if (found) {
+            System.out.println("Result: Bogie " + searchTarget + " was found in the system.");
+        } else {
+            System.out.println("Result: Bogie " + searchTarget + " NOT found.");
         }
+
+        System.out.println("\nUC18 search operation completed...");
     }
 
-    private static void displayArray(String[] arr) {
-        for (String type : arr) {
-            System.out.print("[" + type + "] ");
-        }
-        System.out.println();
-    }
-}
-    public static void bubbleSort(int[] arr) {
-        int n = arr.length;
-        // Outer loop controls number of passes
-        for (int i = 0; i < n - 1; i++) {
-            // Inner loop compares adjacent values
-            for (int j = 0; j < n - i - 1; j++) {
-                if (arr[j] > arr[j + 1]) {
-                    // Swap values when required
-                    int temp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
-                }
+    public static boolean findBogieById(String[] ids, String target) {
+        if (ids == null || target == null) return false;
+
+        for (String id : ids) {
+            if (id.equals(target)) {
+                return true;
             }
         }
+        return false;
     }
+}
 
     private static void displayArray(int[] arr) {
         for (int c : arr) {
